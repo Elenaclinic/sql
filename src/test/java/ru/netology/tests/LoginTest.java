@@ -8,6 +8,7 @@ import ru.netology.data.SQLHelper;
 import ru.netology.page.LoginPage;
 
 import static ru.netology.data.SQLHelper.cleanDatabase;
+import static com.codeborne.selenide.Selenide.open;
 
 public class LoginTest {
 
@@ -19,10 +20,10 @@ public class LoginTest {
     @Test
     @DisplayName("Should successfully login")
     void shouldSuccessfulLogin() {
-        var loginPage = open("http://185.119.57.172:9999", LoginPage.class);
-        var authInfo = DataHelper.generateRandomUser();
+        var loginPage = open("http://localhost:9999", LoginPage.class);
+        var authInfo = DataHelper.getAuthInfoWithTestData();
         var verificationPage = loginPage.validLogin(authInfo);
-        verificationPage.verifyVerificationPageVisiblity();
+        verificationPage.verifyVerificationPageVisibility();
         var verificationCode = SQLHelper.getVerificationCode();
         verificationPage.validVerify(verificationCode.getCode());
     }

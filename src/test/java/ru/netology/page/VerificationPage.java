@@ -7,23 +7,24 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.page;
 
 
+
 public class VerificationPage {
 
     @FindBy(css = "[data-test-id=code] input")
-    private SelenideElement passwordField;
+    private SelenideElement codeField;
     @FindBy(css = "[data-test-id=action-login]")
     private SelenideElement verifyButton;
     @FindBy(css = "[data-test-id='error-notification']")
     private SelenideElement errorNotification;
 
-    public void verifyVerificationPageVisiblity() {
+    public void verifyVerificationPageVisibility() {
         codeField.shouldBe(visible);
     }
-    public void verifyErrorNotificationVisiblity() {
-        errorNotification.shoulBe(visible);
+    public void verifyErrorNotificationVisibility() {
+        errorNotification.shouldBe(visible);
     }
 
-    public DashboardPage ValidVerify(String verificationCode) {
+    public DashboardPage validVerify(String verificationCode) {
         verify(verificationCode);
         return page(DashboardPage.class);
     }

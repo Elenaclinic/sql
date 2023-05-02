@@ -1,10 +1,12 @@
 package ru.netology.data;
 
-import com.sun.jdi.connect.spi.Connection;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -16,13 +18,13 @@ public class SQLHelper {
     }
 
     private static Connection getConn() throws SQLException {
-        return (Connection) DriverManager.getConnection("jdbc:mysql://185.119.57.172:3306/app", "app", "pass");
+        return DriverManager.getConnection("jdbc:mysql://185.119.57.172:3306/app", "app", "pass");
     }
     public static DataHelper.VerificationCode getVerificationCode() {
         var codeSQL = "SELECT code FROM auth_codes ORDER BY created DESC LIMIT 1";
         try (var conn = getConn()) {
-            var code = runner.query((java.sql.Connection) conn, codeSQL, new ScalarHandler<String>());
-            return new DataHelper.VerificationCode(code);
+            var code = runner.query(conn, codeSQL, new BeanHandler<>(DataHelper.AuthCode.class));
+            return new DataHelper.VerificationCode(code.getCode());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
