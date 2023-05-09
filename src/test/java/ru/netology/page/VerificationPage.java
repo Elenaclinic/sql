@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.page;
 
-
-
 public class VerificationPage {
 
     @FindBy(css = "[data-test-id=code] input")
