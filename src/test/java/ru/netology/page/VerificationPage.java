@@ -12,7 +12,7 @@ public class VerificationPage {
 
     @FindBy(css = "[data-test-id=code] input")
     private SelenideElement codeField;
-    @FindBy(css = "[data-test-id=action-login]")
+    @FindBy(css = "[data-test-id=action-verify]")
     private SelenideElement verifyButton;
     @FindBy(css = "[data-test-id='error-notification']")
     private SelenideElement errorNotification;
